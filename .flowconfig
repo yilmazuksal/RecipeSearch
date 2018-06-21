@@ -1,0 +1,12 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/styled-components/*
+<PROJECT_ROOT>/node_modules/@babel/*
+<PROJECT_ROOT>/node_modules/expect/*
+<PROJECT_ROOT>/node_modules/jest-cli/*
+<PROJECT_ROOT>/node_modules/jest-each/*
+<PROJECT_ROOT>/node_modules/jest-runner/*
+[include]
+
+[libs]
+
+[options]
