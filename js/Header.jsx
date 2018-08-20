@@ -2,16 +2,17 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { setSearchTerm, getAPIData, setIsLoading } from './actionCreators'
+import { setSearchTerm, getAPIData, setIsLoading, setCurrentPage } from './actionCreators'
+import { RESET_CURRENT_PAGE } from './actions'
 
 const Header = (props: {
     searchTerm: string,
     handleNewSearch: Function,
-    populateResults: Function
+    populateResults: (string) => void
 }) => (
         <header style={{ display: 'inline-block' }}>
             <div>
-                <input type="text" value={props.searchTerm} placeholder="Search" onChange={props.handleNewSearch} />
+                <input type="text" value={props.searchTerm} placeholder="Search by ingredients or name" onChange={props.handleNewSearch} />
             </div>
             <div>
                 <button style={{ marginLeft: '5px' }} type="button" onClick={() => props.populateResults(props.searchTerm)}>Search</button>
@@ -19,14 +20,16 @@ const Header = (props: {
         </header>
     )
 
-const mapStateToProps = (state) => ({ searchTerm: state.searchTerm })
+const mapStateToProps = (state: State) => ({ searchTerm: state.searchTerm })
 
-const mapDispatchToProps = (dispatch: Function) => ({
-    handleNewSearch(event) {
-        dispatch(setSearchTerm(event.target.value))
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    handleNewSearch({ target }: { target: HTMLInputElement }) {
+        dispatch(setSearchTerm(target.value))
     },
     populateResults(searchTerm: string): void {
-        dispatch(setIsLoading(true))
+        dispatch(setCurrentPage(1, RESET_CURRENT_PAGE))
+        if (searchTerm)
+            dispatch(setIsLoading(true))
         dispatch(getAPIData(searchTerm, '1'))
     }
 })

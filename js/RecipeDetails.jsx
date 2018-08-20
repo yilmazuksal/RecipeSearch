@@ -19,7 +19,7 @@ class Details extends Component<Object> {
                 recipeId: string
             }
         },
-        getIngredients: Function
+        getIngredients: (string) => void
     }
     render() {
         return (
@@ -31,8 +31,8 @@ class Details extends Component<Object> {
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({ recipe: state.recipes[ownProps.match.params.recipeId] })
-const mapDispatchToProps = (dispatch: Function) => ({
+const mapStateToProps = (state: State, ownProps) => ({ recipe: state.recipes[ownProps.match.params.recipeId] })
+const mapDispatchToProps = (dispatch: Dispatch) => ({
     getIngredients(recipeId) {
         dispatch(getRecipeDetails(recipeId))
     }
